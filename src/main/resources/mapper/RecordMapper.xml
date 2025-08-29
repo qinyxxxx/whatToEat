@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qyx.whattoeat.record.mapper.RecordMapper">
+
+    <insert id="insert" parameterType="com.qyx.whattoeat.record.model.Record"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO record (user_id, restaurant_id, status, comment)
+        VALUES (#{userId}, #{restaurantId}, #{status}, #{comment})
+    </insert>
+
+    <select id="findByStatus" resultType="com.qyx.whattoeat.record.dto.RecordDto">
+        SELECT r.id AS recordId,
+               r.restaurant_id AS restaurantId,
+               rest.name AS restaurantName,
+               r.status,
+               r.comment
+        FROM record r
+                 JOIN restaurant rest ON r.restaurant_id = rest.id
+        WHERE r.user_id = #{userId} AND r.status = #{status}
+        ORDER BY r.created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countByStatus" resultType="int">
+        SELECT COUNT(*)
+        FROM record
+        WHERE user_id = #{userId} AND status = #{status}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE record
+        SET status = #{status},
+            comment = #{comment},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = #{recordId}
+    </update>
+
+</mapper>
