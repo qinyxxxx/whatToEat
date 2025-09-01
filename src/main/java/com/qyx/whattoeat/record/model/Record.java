@@ -14,6 +14,7 @@ public class Record {
     private Long restaurantId;
     private RecordStatus status;
     private String comment;
+    private Integer rating;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

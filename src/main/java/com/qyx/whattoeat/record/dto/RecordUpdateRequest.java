@@ -9,5 +9,6 @@ import lombok.Data;
 @Data
 public class RecordUpdateRequest {
     private RecordStatus status;
+    private Integer rating;
     private String comment; // optional
 }

@@ -12,5 +12,6 @@ public class RecordDto {
     private Long restaurantId;
     private String restaurantName;
     private RecordStatus status;
+    private Integer rating;
     private String comment;
 }

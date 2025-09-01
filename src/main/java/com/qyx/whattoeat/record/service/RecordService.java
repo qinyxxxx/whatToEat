@@ -6,6 +6,7 @@ import com.qyx.whattoeat.record.dto.RecordDto;
 import com.qyx.whattoeat.record.dto.RecordUpdateRequest;
 import com.qyx.whattoeat.record.mapper.RecordMapper;
 import com.qyx.whattoeat.record.model.Record;
+import com.qyx.whattoeat.record.model.RecordStatus;
 import com.qyx.whattoeat.restaurant.dto.RestaurantDto;
 import com.qyx.whattoeat.restaurant.mapper.RestaurantMapper;
 import com.qyx.whattoeat.restaurant.model.Restaurant;
@@ -47,6 +48,13 @@ public class RecordService {
         record.setUserId(request.getUserId());
         record.setRestaurantId(restaurantId);
         record.setStatus(request.getStatus());
+        if (request.getStatus() == RecordStatus.WISH) {
+            record.setRating(null);
+        } else if (request.getRating() != null) {
+            int r = request.getRating();
+            if (r < 1 || r > 5) throw new IllegalArgumentException("rating must be 1..5");
+            record.setRating(r);
+        }
         recordMapper.insert(record);
 
         return record.getId();
@@ -61,6 +69,13 @@ public class RecordService {
     }
 
     public boolean updateRecord(Long recordId, RecordUpdateRequest request) {
+        if (request.getRating() != null) {
+            int r = request.getRating();
+            if (r < 1 || r > 5) throw new IllegalArgumentException("rating must be 1..5");
+        }
+        if (request.getStatus() == RecordStatus.WISH) {
+            request.setRating(null);
+        }
         int rows = recordMapper.updateStatus(recordId, request.getStatus().name(), request.getComment());
         return rows > 0;
     }

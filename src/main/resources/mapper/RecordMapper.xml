@@ -7,8 +7,8 @@
 
     <insert id="insert" parameterType="com.qyx.whattoeat.record.model.Record"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO record (user_id, restaurant_id, status, comment)
-        VALUES (#{userId}, #{restaurantId}, #{status}, #{comment})
+        INSERT INTO record (user_id, restaurant_id, status, comment, rating)
+        VALUES (#{userId}, #{restaurantId}, #{status}, #{comment}, #{rating})
     </insert>
 
     <select id="findByStatus" resultType="com.qyx.whattoeat.record.dto.RecordDto">
@@ -16,7 +16,8 @@
                r.restaurant_id AS restaurantId,
                rest.name AS restaurantName,
                r.status,
-               r.comment
+               r.comment,
+               r.rating
         FROM record r
                  JOIN restaurant rest ON r.restaurant_id = rest.id
         WHERE r.user_id = #{userId} AND r.status = #{status}
@@ -34,6 +35,7 @@
         UPDATE record
         SET status = #{status},
             comment = #{comment},
+            rating = #{rating},
             updated_at = CURRENT_TIMESTAMP
         WHERE id = #{recordId}
     </update>
