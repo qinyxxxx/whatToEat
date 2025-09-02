@@ -11,6 +11,12 @@
         VALUES (#{userId}, #{restaurantId}, #{status}, #{comment}, #{rating})
     </insert>
 
+    <select id="findById" parameterType="map" resultType="com.qyx.whattoeat.model.Record">
+        SELECT id, user_id, restaurant_id, status, rating, comment
+        FROM record
+        WHERE id = #{recordId}
+    </select>
+
     <select id="findByUserAndRestaurant"
             parameterType="map"
             resultType="com.qyx.whattoeat.model.Record">

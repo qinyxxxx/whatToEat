@@ -9,7 +9,6 @@ import lombok.Data;
 
 @Data
 public class RecordCreateRequest {
-    private Long userId;
     private RestaurantDto restaurant;
     private RecordStatus status;        // WISH or VISITED
     private Integer rating;

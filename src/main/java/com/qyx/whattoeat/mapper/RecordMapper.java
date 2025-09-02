@@ -30,8 +30,9 @@ public interface RecordMapper {
             @Param("comment") String comment
     );
 
-
     Record findByUserAndRestaurant(@Param("userId") Long userId,
                                    @Param("restaurantId") Long restaurantId);
+
+    Record findById(@Param("recordId") Long recordId);
 
 }

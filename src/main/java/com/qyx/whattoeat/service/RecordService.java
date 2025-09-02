@@ -14,7 +14,6 @@ import com.qyx.whattoeat.mapper.RestaurantMapper;
 import com.qyx.whattoeat.model.Restaurant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,20 +26,12 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class RecordService {
-    @Autowired
     private final RecordMapper recordMapper;
-
-    @Autowired
     private final RestaurantMapper restaurantMapper;
-
-    @Autowired
     private final RecordConverter recordConverter;
-
-    @Autowired
     private final RestaurantConverter restaurantConverter;
 
-
-    public Long createRecord(RecordCreateRequest request) {
+    public Long createRecord(Long userId, RecordCreateRequest request) {
         Long restaurantId = null;
 
         RestaurantDto dto = request.getRestaurant();
@@ -65,8 +56,12 @@ public class RecordService {
             }
         }
 
+        Record existedR = recordMapper.findByUserAndRestaurant(userId, restaurantId);
+        if (existedR != null){
+            throw new IllegalArgumentException("Current user already has this restaurant record");
+        }
         Record record = new Record();
-        record.setUserId(request.getUserId());
+        record.setUserId(userId);
         record.setRestaurantId(restaurantId);
         record.setStatus(request.getStatus());
         if (request.getStatus() == RecordStatus.WISH) {
@@ -92,7 +87,11 @@ public class RecordService {
         return new PageResult<>(page, size, total, recordDtos);
     }
 
-    public boolean updateRecord(Long recordId, RecordUpdateRequest request) {
+    public boolean updateRecord(Long recordId, Long userId, RecordUpdateRequest request) {
+        Record record = recordMapper.findById(recordId);
+        if (!record.getUserId().equals(userId)){
+            throw new IllegalArgumentException("Permission error, this record does not belong to current user");
+        }
         if (request.getRating() != null) {
             int r = request.getRating();
             if (r < 1 || r > 5) throw new IllegalArgumentException("rating must be 1..5");

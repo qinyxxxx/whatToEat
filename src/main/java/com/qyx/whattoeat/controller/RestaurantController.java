@@ -4,7 +4,7 @@ import com.qyx.whattoeat.common.dto.ApiResponse;
 import com.qyx.whattoeat.dto.RestaurantCreateRequest;
 import com.qyx.whattoeat.model.Restaurant;
 import com.qyx.whattoeat.service.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/restaurants")
+@RequiredArgsConstructor
 public class RestaurantController {
-
-    @Autowired
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
 
     @PostMapping
     public ApiResponse<Restaurant> create(@RequestBody RestaurantCreateRequest request) {
