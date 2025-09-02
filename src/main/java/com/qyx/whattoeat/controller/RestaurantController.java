@@ -1,9 +1,9 @@
-package com.qyx.whattoeat.restaurant.controller;
+package com.qyx.whattoeat.controller;
 
 import com.qyx.whattoeat.common.dto.ApiResponse;
-import com.qyx.whattoeat.restaurant.dto.RestaurantCreateRequest;
-import com.qyx.whattoeat.restaurant.model.Restaurant;
-import com.qyx.whattoeat.restaurant.service.RestaurantService;
+import com.qyx.whattoeat.dto.RestaurantCreateRequest;
+import com.qyx.whattoeat.model.Restaurant;
+import com.qyx.whattoeat.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

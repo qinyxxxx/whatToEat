@@ -1,8 +1,8 @@
-package com.qyx.whattoeat.restaurant.service;
+package com.qyx.whattoeat.service;
 
-import com.qyx.whattoeat.restaurant.dto.RestaurantCreateRequest;
-import com.qyx.whattoeat.restaurant.mapper.RestaurantMapper;
-import com.qyx.whattoeat.restaurant.model.Restaurant;
+import com.qyx.whattoeat.dto.RestaurantCreateRequest;
+import com.qyx.whattoeat.mapper.RestaurantMapper;
+import com.qyx.whattoeat.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +24,6 @@ public class RestaurantService {
         restaurantMapper.insert(restaurant);
         return restaurant;
     }
+
+
 }

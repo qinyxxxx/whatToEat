@@ -3,25 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.qyx.whattoeat.record.mapper.RecordMapper">
+<mapper namespace="com.qyx.whattoeat.mapper.RecordMapper">
 
-    <insert id="insert" parameterType="com.qyx.whattoeat.record.model.Record"
+    <insert id="insert" parameterType="com.qyx.whattoeat.model.Record"
             useGeneratedKeys="true" keyProperty="id">
         INSERT INTO record (user_id, restaurant_id, status, comment, rating)
         VALUES (#{userId}, #{restaurantId}, #{status}, #{comment}, #{rating})
     </insert>
 
-    <select id="findByStatus" resultType="com.qyx.whattoeat.record.dto.RecordDto">
-        SELECT r.id AS recordId,
-               r.restaurant_id AS restaurantId,
-               rest.name AS restaurantName,
-               r.status,
-               r.comment,
-               r.rating
-        FROM record r
-                 JOIN restaurant rest ON r.restaurant_id = rest.id
-        WHERE r.user_id = #{userId} AND r.status = #{status}
-        ORDER BY r.created_at DESC
+    <select id="findByUserAndRestaurant"
+            parameterType="map"
+            resultType="com.qyx.whattoeat.model.Record">
+        SELECT id, user_id, restaurant_id, status, rating, comment
+        FROM record
+        WHERE user_id = #{userId} AND restaurant_id = #{restaurantId}
+        LIMIT 1
+    </select>
+
+    <select id="findByStatus" resultType="com.qyx.whattoeat.model.Record">
+        SELECT id, user_id, restaurant_id, status, comment, rating, created_at, updated_at
+        FROM record
+        WHERE user_id = #{userId}
+          AND status  = #{status}
+        ORDER BY created_at DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 

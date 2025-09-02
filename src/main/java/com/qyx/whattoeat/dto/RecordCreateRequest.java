@@ -1,11 +1,10 @@
-package com.qyx.whattoeat.record.dto;
+package com.qyx.whattoeat.dto;
 
 /**
  * Created by Yuxin Qin on 8/28/25
  */
 
-import com.qyx.whattoeat.record.model.RecordStatus;
-import com.qyx.whattoeat.restaurant.dto.RestaurantDto;
+import com.qyx.whattoeat.model.RecordStatus;
 import lombok.Data;
 
 @Data

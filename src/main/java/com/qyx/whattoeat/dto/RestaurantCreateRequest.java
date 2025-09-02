@@ -1,17 +1,17 @@
-package com.qyx.whattoeat.restaurant.dto;
+package com.qyx.whattoeat.dto;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 /**
- * Created by Yuxin Qin on 8/28/25
+ * Created by Yuxin Qin on 8/27/25
  */
 @Data
-public class RestaurantDto {
-    private Long id;
+public class RestaurantCreateRequest {
     private String name;
     private String address;
     private String tags;
     private BigDecimal avgCost;
+
 }

@@ -1,4 +1,4 @@
-package com.qyx.whattoeat.record.model;
+package com.qyx.whattoeat.model;
 
 import lombok.Data;
 

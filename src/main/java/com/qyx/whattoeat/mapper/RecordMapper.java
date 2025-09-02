@@ -1,9 +1,10 @@
-package com.qyx.whattoeat.record.mapper;
+package com.qyx.whattoeat.mapper;
 
-import com.qyx.whattoeat.record.dto.RecordDto;
+import com.qyx.whattoeat.model.Record;
+import com.qyx.whattoeat.model.RecordStatus;
+import com.qyx.whattoeat.dto.RecordDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.qyx.whattoeat.record.model.Record;
 
 import java.util.List;
 
@@ -14,18 +15,23 @@ import java.util.List;
 public interface RecordMapper {
     int insert(Record record);
 
-    List<RecordDto> findByStatus(
+    List<Record> findByStatus(
             @Param("userId") Long userId,
-            @Param("status") String status,
+            @Param("status") RecordStatus status,
             @Param("limit") int limit,
             @Param("offset") int offset
     );
 
-    int countByStatus(@Param("userId") Long userId, @Param("status") String status);
+    int countByStatus(@Param("userId") Long userId, @Param("status") RecordStatus status);
 
     int updateStatus(
             @Param("recordId") Long recordId,
             @Param("status") String status,
             @Param("comment") String comment
     );
+
+
+    Record findByUserAndRestaurant(@Param("userId") Long userId,
+                                   @Param("restaurantId") Long restaurantId);
+
 }

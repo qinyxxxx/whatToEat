@@ -1,6 +1,6 @@
-package com.qyx.whattoeat.record.dto;
+package com.qyx.whattoeat.dto;
 
-import com.qyx.whattoeat.record.model.RecordStatus;
+import com.qyx.whattoeat.model.RecordStatus;
 import lombok.Data;
 
 /**

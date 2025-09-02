@@ -1,17 +1,21 @@
-package com.qyx.whattoeat.record.controller;
+package com.qyx.whattoeat.controller;
 
 import com.qyx.whattoeat.common.dto.ApiResponse;
 import com.qyx.whattoeat.common.dto.PageResult;
-import com.qyx.whattoeat.record.dto.RecordCreateRequest;
-import com.qyx.whattoeat.record.dto.RecordDto;
-import com.qyx.whattoeat.record.dto.RecordUpdateRequest;
-import com.qyx.whattoeat.record.service.RecordService;
+import com.qyx.whattoeat.dto.RecordCreateRequest;
+import com.qyx.whattoeat.dto.RecordUpdateRequest;
+import com.qyx.whattoeat.dto.RecordDto;
+import com.qyx.whattoeat.model.RecordStatus;
+import com.qyx.whattoeat.service.RecordService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Yuxin Qin on 8/28/25
  */
+
+@Slf4j
 @RestController
 @RequestMapping("/records")
 public class RecordController {
@@ -24,6 +28,7 @@ public class RecordController {
             Long id = recordService.createRecord(request);
             return ApiResponse.success(id);
         } catch (Exception e) {
+            log.error("Failed to create record: " + e.getMessage());
             return ApiResponse.error("Failed to create record: " + e.getMessage());
         }
     }
@@ -31,7 +36,7 @@ public class RecordController {
     @GetMapping
     public ApiResponse<PageResult<RecordDto>> getRecords(
             @RequestParam Long userId,
-            @RequestParam String status,
+            @RequestParam RecordStatus status,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {

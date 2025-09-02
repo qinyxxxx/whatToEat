@@ -1,4 +1,4 @@
-package com.qyx.whattoeat.record.model;
+package com.qyx.whattoeat.model;
 
 /**
  * Created by Yuxin Qin on 8/28/25
