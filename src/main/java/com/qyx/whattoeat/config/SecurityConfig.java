@@ -12,6 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.qyx.whattoeat.auth.jwt.JwtAuthFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 /**
  * Created by Yuxin Qin on 9/1/25
  */
@@ -23,7 +25,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtFilter) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .cors(withDefaults()) // 开启 CORS
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(
                         org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(reg -> reg

@@ -30,7 +30,8 @@ public class UserService {
         u.setPasswordHash(passwordEncoder.encode(req.getPassword()));
         u.setNickname(req.getNickname());
         userMapper.insert(u);
-        return new TokenResp(jwtUtil.generate(u.getId(), u.getEmail()));
+        String token = jwtUtil.generate(u.getId(), u.getEmail());
+        return new TokenResp(token, u.getId(), u.getNickname(), u.getEmail());
     }
 
     public TokenResp login(LoginReq req) {
@@ -38,7 +39,8 @@ public class UserService {
         if (u == null || !passwordEncoder.matches(req.getPassword(), u.getPasswordHash())) {
             throw new IllegalArgumentException("Invalid email or password");
         }
-        return new TokenResp(jwtUtil.generate(u.getId(), u.getEmail()));
+        String token = jwtUtil.generate(u.getId(), u.getEmail());
+        return new TokenResp(token, u.getId(), u.getNickname(), u.getEmail());
     }
 
     public User getById(Long userId) {

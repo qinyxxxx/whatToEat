@@ -8,7 +8,16 @@ import lombok.Data;
 @Data
 public class TokenResp {
     private String token;
-    public TokenResp(String t){
-        this.token=t;
+
+    private Long userId;
+
+    private String nickname;
+    private String email;
+
+    public TokenResp(String token, Long id, String nickname, String email) {
+        this.token = token;
+        this.userId = id;
+        this.nickname = nickname;
+        this.email = email;
     }
 }
